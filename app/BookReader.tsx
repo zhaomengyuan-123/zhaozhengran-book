@@ -109,7 +109,10 @@ export default function BookReader() {
     if (email) {
       const { error } = await supabase.auth.signInWithOtp({
         email,
-        options: { emailRedirectTo: window.location.origin },
+        options: {
+          emailRedirectTo:
+            `${window.location.origin}${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`,
+        },
       });
       window.alert(error ? `发送失败：${error.message}` : "登录邮件已发送，请在邮箱中点击链接。");
     }
